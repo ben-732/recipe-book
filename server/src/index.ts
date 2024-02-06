@@ -1,16 +1,22 @@
-import express, { Request, Response } from "express";
+import Fastify from "fastify";
+
 import dotenv from "dotenv";
 
 dotenv.config();
 
-const app = express();
-
-app.get("/", (req: Request, res: Response) => {
-  res.send("Hello, World!");
+const fastify = Fastify({
+  logger: true,
 });
 
-const port = process.env.PORT || 3000;
+// Declare a route
+fastify.get("/", (request, reply) => {
+  reply.send({ hello: "world" });
+});
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+fastify.register(import("./routes/home"), { prefix: "/home" });
+
+const port = process.env.PORT ? parseInt(process.env.PORT as string) : 3000;
+
+fastify.listen({ port }, (err, address) => {
+  if (err) throw err;
 });
