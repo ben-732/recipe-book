@@ -2,8 +2,13 @@ import Fastify from "fastify";
 import dotenv from "dotenv";
 
 import { Database } from "./interface/database";
+import { RecipeRepository } from "./repository/RecipeRepository";
 
 Database.connect();
+
+const recipes = new RecipeRepository();
+
+recipes.get("24ddaba2-5ee0-4388-bf88-e0f75d66e915");
 
 dotenv.config();
 
