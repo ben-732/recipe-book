@@ -1,6 +1,9 @@
 import Fastify from "fastify";
-
 import dotenv from "dotenv";
+
+import { Database } from "./interface/database";
+
+Database.connect();
 
 dotenv.config();
 
