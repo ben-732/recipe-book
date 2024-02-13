@@ -2,6 +2,7 @@ import { BaseEntity } from "./BaseEntity";
 
 export interface IRecipeFields {
   name: string;
+  description: string;
   picture: string;
   customFields: Record<string, string>;
   ingredients: string[];
@@ -9,8 +10,9 @@ export interface IRecipeFields {
   tags: string[];
 }
 
-export class Recipe extends BaseEntity implements BaseEntity, IRecipeFields {
+export class Recipe extends BaseEntity implements IRecipeFields {
   name: string;
+  description: string;
   picture: string;
   customFields: Record<string, string>;
   ingredients: string[];
@@ -21,6 +23,7 @@ export class Recipe extends BaseEntity implements BaseEntity, IRecipeFields {
     super(from);
 
     this.tags = from.tags;
+    this.description = from.description;
     this.name = from.name;
     this.picture = from.picture;
     this.customFields = from.customFields;

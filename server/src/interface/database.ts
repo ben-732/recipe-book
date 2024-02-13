@@ -49,7 +49,7 @@ export class Database {
       return res.rows;
     } catch (error) {
       console.error("Error executing query", error);
-      return [];
+      return Promise.reject(error);
     }
   }
 

@@ -3,12 +3,27 @@ import dotenv from "dotenv";
 
 import { Database } from "./interface/database";
 import { RecipeRepository } from "./repository/RecipeRepository";
+import { IRecipeFields } from "./models/Recipe";
 
 Database.connect();
 
 const recipes = new RecipeRepository();
 
-recipes.get("24ddaba2-5ee0-4388-bf88-e0f75d66e915");
+// recipes
+//   .add({
+//     name: "Test",
+//     description: "Test",
+//     picture: "test",
+//     customFields: {},
+//     ingredients: [],
+//     instructions: [],
+//     tags: [],
+//   })
+//   .then((recipe) => {
+//     console.log(recipe);
+//   });
+
+// recipes.get("24ddaba2-5ee0-4388-bf88-e0f75d66e915");
 
 dotenv.config();
 
