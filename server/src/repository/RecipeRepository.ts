@@ -4,11 +4,12 @@ import { IRepository } from "./IRepository";
 import { Database } from "../interface/database";
 import { QueryConfig, CustomTypesConfig } from "pg";
 import { randomUUID } from "crypto";
+import { IFilter } from "./IFilter";
 
 const CURRENT_USER_ID = "24ddaba2-5ee0-4388-bf88-e0f75d66e915";
 
 export class RecipeRepository
-  implements IRepository<Recipe, RecipeSummary, IRecipeFields>
+  implements IRepository<Recipe, RecipeSummary, IRecipeFields, IFilter>
 {
   /**
    * Get a single recipe by id
@@ -38,8 +39,40 @@ export class RecipeRepository
     }
   }
 
-  getMultiple(): Promise<RecipeSummary[]> {
-    throw new Error("Method not implemented.");
+  /**
+   * Get multiple recipes
+   */
+  async getMultiple(filter: IFilter): Promise<RecipeSummary[]> {
+    let valueCount = 1;
+
+    const query: QueryConfig = {
+      text: "SELECT * FROM recipes",
+      name: "get-recipes",
+      values: [],
+    };
+
+    if (filter.search) {
+      query.text += ` WHERE name ILIKE $${valueCount} OR description ILIKE $${valueCount++}`;
+      query.values!.push(`%${filter.search}%`);
+    }
+
+    if (filter.limit) {
+      query.text += ` LIMIT $${valueCount++}`;
+      query.values!.push(filter.limit);
+    }
+
+    if (filter.offset) {
+      query.text += ` OFFSET $${valueCount++}`;
+      query.values!.push(filter.offset);
+    }
+
+    try {
+      const req = await Database.query(query);
+
+      return req.map((recipe) => new Recipe(recipe).toSummary());
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   async add(item: IRecipeFields): Promise<Recipe> {
@@ -68,8 +101,19 @@ export class RecipeRepository
     }
   }
 
-  delete(id: string): Promise<boolean> {
-    throw new Error("Method not implemented.");
+  async delete(id: string): Promise<void> {
+    const query: QueryConfig = {
+      text: "UPDATE FROM recipes WHERE id = $1 SET deleted_at = NOW()",
+      name: "delete-recipe",
+      values: [id],
+    };
+    try {
+      await Database.query(query);
+
+      return;
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   update(item: IRecipeFields): Promise<Recipe> {

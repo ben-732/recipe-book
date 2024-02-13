@@ -25,6 +25,10 @@ const recipes = new RecipeRepository();
 
 // recipes.get("24ddaba2-5ee0-4388-bf88-e0f75d66e915");
 
+recipes.getMultiple({ limit: 10, search: "no" }).then((recipes) => {
+  console.log(recipes);
+});
+
 dotenv.config();
 
 const fastify = Fastify({

@@ -30,6 +30,10 @@ export class Recipe extends BaseEntity implements IRecipeFields {
     this.ingredients = from.ingredients;
     this.instructions = from.instructions;
   }
+
+  toSummary(): RecipeSummary {
+    return new RecipeSummary(this);
+  }
 }
 
 export class RecipeSummary implements Partial<Recipe> {
@@ -44,10 +48,11 @@ export class RecipeSummary implements Partial<Recipe> {
   constructor(recipe: Recipe) {
     this.id = recipe.id;
     this.name = recipe.name;
-    this.description = recipe.customFields.description;
+    this.description = recipe.description;
     this.picture = recipe.picture;
     this.tags = recipe.tags;
-    this.ingredientsCount = recipe.ingredients.length;
-    this.stepsCount = recipe.instructions.length;
+
+    this.ingredientsCount = recipe.ingredients?.length ?? 0;
+    this.stepsCount = recipe.instructions?.length ?? 0;
   }
 }
