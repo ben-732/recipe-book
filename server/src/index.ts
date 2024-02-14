@@ -22,8 +22,10 @@ fastify.get("/", (request, reply) => {
 fastify.register(RepositoryPlugin);
 
 // Register routes
-fastify.register(import("./routes/home"), { prefix: "/home" });
-fastify.register(import("./routes/RecipeRouter"), { prefix: "/recipes" });
+fastify.register(import("./controllers/home"), { prefix: "/home" });
+fastify.register(import("./controllers/RecipeController"), {
+  prefix: "/recipes",
+});
 
 const port = process.env.PORT ? parseInt(process.env.PORT as string) : 3000;
 

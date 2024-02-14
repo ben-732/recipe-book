@@ -17,7 +17,7 @@ export class RecipeRepository
    * @param id Id of the recipe to get
    * @returns Specified Recipe
    */
-  async get(id: string): Promise<Recipe> {
+  async get(id: string): Promise<Recipe | undefined> {
     const query: QueryConfig = {
       text: "SELECT * FROM recipes WHERE id = $1",
       name: "get-recipe-by-id",
@@ -28,7 +28,7 @@ export class RecipeRepository
       const req = await Database.query(query);
 
       if (req.length < 1) {
-        return Promise.reject("No recipe found");
+        return undefined;
       }
 
       const recipe = new Recipe(req[0]);
