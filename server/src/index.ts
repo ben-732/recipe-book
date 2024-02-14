@@ -2,32 +2,10 @@ import Fastify from "fastify";
 import dotenv from "dotenv";
 
 import { Database } from "./interface/database";
-import { RecipeRepository } from "./repository/RecipeRepository";
-import { IRecipeFields } from "./models/Recipe";
+import RepositoryPlugin from "./repository/RepositoryPlugin";
 
+// TODO: Find a better way to do tis
 Database.connect();
-
-const recipes = new RecipeRepository();
-
-// recipes
-//   .add({
-//     name: "Test",
-//     description: "Test",
-//     picture: "test",
-//     customFields: {},
-//     ingredients: [],
-//     instructions: [],
-//     tags: [],
-//   })
-//   .then((recipe) => {
-//     console.log(recipe);
-//   });
-
-// recipes.get("24ddaba2-5ee0-4388-bf88-e0f75d66e915");
-
-recipes.getMultiple({ limit: 10, search: "no" }).then((recipes) => {
-  console.log(recipes);
-});
 
 dotenv.config();
 
@@ -40,7 +18,12 @@ fastify.get("/", (request, reply) => {
   reply.send({ hello: "world" });
 });
 
+// Register the repositories plugin
+fastify.register(RepositoryPlugin);
+
+// Register routes
 fastify.register(import("./routes/home"), { prefix: "/home" });
+fastify.register(import("./routes/RecipeRouter"), { prefix: "/recipes" });
 
 const port = process.env.PORT ? parseInt(process.env.PORT as string) : 3000;
 
