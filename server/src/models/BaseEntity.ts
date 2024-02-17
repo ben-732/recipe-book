@@ -2,7 +2,7 @@ import { Type, type Static } from "@sinclair/typebox";
 import { randomUUID } from "crypto";
 
 export const BaseEntitySchema = Type.Object({
-  id: Type.String(),
+  id: Type.String({ format: "uuid" }),
   createdAt: Type.String({ format: "date-time" }),
   updatedAt: Type.String({ format: "date-time" }),
   deletedAt: Type.Union([Type.Null(), Type.String({ format: "date-time" })]),

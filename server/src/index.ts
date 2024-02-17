@@ -13,7 +13,7 @@ Database.connect();
 dotenv.config();
 
 const fastify = Fastify({
-  logger: true,
+  logger: false,
 });
 
 fastify.withTypeProvider<TypeBoxTypeProvider>();
@@ -30,7 +30,7 @@ fastify.register(import("@fastify/swagger"), {
     schemes: ["http"],
     consumes: ["application/json"],
     produces: ["application/json"],
-    tags: [{ name: "recipes", description: "Recipe operations" }],
+    tags: [{ name: "Recipes", description: "Recipe operations" }],
   },
 });
 

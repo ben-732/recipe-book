@@ -1,6 +1,7 @@
 import { Static, Type } from "@sinclair/typebox";
 import { BaseEntity, BaseEntitySchema } from "./BaseEntity";
 import { RecipeSummary } from "./RecipeSummary";
+import { randomUUID } from "crypto";
 
 const RecipeSchema = Type.Object({
   name: Type.String(),
@@ -17,6 +18,7 @@ export type RecipeType = Static<typeof RecipeSchema>;
 export class Recipe extends BaseEntity implements Static<typeof RecipeSchema> {
   static readonly Schema = Type.Composite([BaseEntitySchema, RecipeSchema], {
     $id: "Recipe",
+    title: "Recipe",
   });
 
   name: string;
@@ -30,13 +32,13 @@ export class Recipe extends BaseEntity implements Static<typeof RecipeSchema> {
   constructor(from: Static<typeof RecipeSchema> & BaseEntity) {
     super(from);
 
-    this.tags = from.tags;
     this.description = from.description;
     this.name = from.name;
     this.picture = from.picture;
-    this.customFields = from.customFields;
-    this.ingredients = from.ingredients;
-    this.instructions = from.instructions;
+    this.customFields = from.customFields ?? {};
+    this.ingredients = from.ingredients ?? [];
+    this.instructions = from.instructions ?? [];
+    this.tags = from.tags ?? [];
   }
 
   toSummary(): RecipeSummary {
