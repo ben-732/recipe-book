@@ -3,6 +3,7 @@ import fp from "fastify-plugin";
 import { RecipeRepository } from "./RecipeRepository";
 import { Recipe } from "../models/Recipe";
 import { RecipeSummary } from "../models/RecipeSummary";
+import { FilterSchema } from "../models/BaseFilter";
 
 declare module "fastify" {
   interface FastifyInstance {
@@ -18,6 +19,8 @@ const Repositories: FastifyPluginCallback = (fastify, options, done) => {
   });
   fastify.addSchema(Recipe.Schema);
   fastify.addSchema(RecipeSummary.Schema);
+  fastify.addSchema(FilterSchema);
+  console.log(FilterSchema);
 
   done();
 };

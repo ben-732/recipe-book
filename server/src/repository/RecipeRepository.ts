@@ -4,13 +4,15 @@ import { IRepository } from "./IRepository";
 import { Database } from "../interface/database";
 import { QueryConfig, CustomTypesConfig } from "pg";
 import { randomUUID } from "crypto";
-import { IFilter } from "./IFilter";
+import { FilterSchema } from "../models/BaseFilter";
 import { RecipeSummary } from "../models/RecipeSummary";
+import { Static } from "@sinclair/typebox";
 
 const CURRENT_USER_ID = "24ddaba2-5ee0-4388-bf88-e0f75d66e915";
 
 export class RecipeRepository
-  implements IRepository<Recipe, RecipeSummary, RecipeType, IFilter>
+  implements
+    IRepository<Recipe, RecipeSummary, RecipeType, Static<typeof FilterSchema>>
 {
   /**
    * Get a single recipe by id
@@ -43,12 +45,13 @@ export class RecipeRepository
   /**
    * Get multiple recipes
    */
-  async getMultiple(filter: IFilter): Promise<RecipeSummary[]> {
+  async getMultiple(
+    filter: Static<typeof FilterSchema>
+  ): Promise<RecipeSummary[]> {
     let valueCount = 1;
 
     const query: QueryConfig = {
       text: "SELECT * FROM recipes",
-      name: "get-recipes",
       values: [],
     };
 
