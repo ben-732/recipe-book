@@ -12,6 +12,24 @@ dotenv.config();
 const fastify = Fastify({
   logger: true,
 });
+fastify.register(import("@fastify/swagger"), {
+  swagger: {
+    info: {
+      title: "Recipe API",
+      description: "Recipe API",
+      version: "0.1.0",
+    },
+    host: "localhost:3000",
+    schemes: ["http"],
+    consumes: ["application/json"],
+    produces: ["application/json"],
+    tags: [{ name: "recipes", description: "Recipe operations" }],
+  },
+});
+
+fastify.register(import("@fastify/swagger-ui"), {
+  routePrefix: "/documentation",
+});
 
 // Declare a route
 fastify.get("/", (request, reply) => {
