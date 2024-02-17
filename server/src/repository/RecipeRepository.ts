@@ -1,15 +1,16 @@
-import { IRecipeFields, Recipe, RecipeSummary } from "../models/Recipe";
+import { Recipe, RecipeType } from "../models/Recipe";
 import { IRepository } from "./IRepository";
 
 import { Database } from "../interface/database";
 import { QueryConfig, CustomTypesConfig } from "pg";
 import { randomUUID } from "crypto";
 import { IFilter } from "./IFilter";
+import { RecipeSummary } from "../models/RecipeSummary";
 
 const CURRENT_USER_ID = "24ddaba2-5ee0-4388-bf88-e0f75d66e915";
 
 export class RecipeRepository
-  implements IRepository<Recipe, RecipeSummary, IRecipeFields, IFilter>
+  implements IRepository<Recipe, RecipeSummary, RecipeType, IFilter>
 {
   /**
    * Get a single recipe by id
@@ -75,7 +76,7 @@ export class RecipeRepository
     }
   }
 
-  async add(item: IRecipeFields): Promise<Recipe> {
+  async add(item: RecipeType): Promise<Recipe> {
     console.log(item);
 
     const query: QueryConfig = {
@@ -116,7 +117,7 @@ export class RecipeRepository
     }
   }
 
-  update(item: IRecipeFields): Promise<Recipe> {
+  update(item: RecipeType): Promise<Recipe> {
     throw new Error("Method not implemented.");
   }
 }

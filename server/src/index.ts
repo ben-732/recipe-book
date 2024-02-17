@@ -1,8 +1,11 @@
 import Fastify from "fastify";
+import { TypeBoxTypeProvider } from "@fastify/type-provider-typebox";
+import Ajv from "ajv";
 import dotenv from "dotenv";
 
 import { Database } from "./interface/database";
 import RepositoryPlugin from "./repository/RepositoryPlugin";
+import validator from "./util/validator";
 
 // TODO: Find a better way to do tis
 Database.connect();
@@ -12,6 +15,10 @@ dotenv.config();
 const fastify = Fastify({
   logger: true,
 });
+
+fastify.withTypeProvider<TypeBoxTypeProvider>();
+fastify.setValidatorCompiler(validator);
+
 fastify.register(import("@fastify/swagger"), {
   swagger: {
     info: {

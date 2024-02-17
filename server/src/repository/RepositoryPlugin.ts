@@ -1,6 +1,8 @@
 import { FastifyPluginCallback } from "fastify";
 import fp from "fastify-plugin";
 import { RecipeRepository } from "./RecipeRepository";
+import { Recipe } from "../models/Recipe";
+import { RecipeSummary } from "../models/RecipeSummary";
 
 declare module "fastify" {
   interface FastifyInstance {
@@ -14,6 +16,8 @@ const Repositories: FastifyPluginCallback = (fastify, options, done) => {
   fastify.decorate("repository", {
     recipes: new RecipeRepository(),
   });
+  fastify.addSchema(Recipe.Schema);
+  fastify.addSchema(RecipeSummary.Schema);
 
   done();
 };

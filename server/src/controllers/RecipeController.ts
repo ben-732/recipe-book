@@ -7,11 +7,19 @@ import {
 import { Recipe } from "../models/Recipe";
 
 const RecipeController: FastifyPluginCallback = (fastify, options, done) => {
-  fastify.get<{
-    Reply: Recipe;
-    Params: { id: string };
-  }>("/:id", async (request, reply) =>
-    HandleGetRecipe(request, reply, fastify)
+  fastify.get(
+    "/:id",
+    {
+      schema: {
+        params: {
+          id: { type: "string" },
+        },
+        response: {
+          200: {},
+        },
+      },
+    },
+    async (request, reply) => {}
   );
 
   done();

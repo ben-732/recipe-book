@@ -1,6 +1,24 @@
-import { BaseEntity } from "./BaseEntity";
+import { Static, Type } from "@sinclair/typebox";
+import { BaseEntity, BaseEntitySchema } from "./BaseEntity";
+import { RecipeSummary } from "./RecipeSummary";
 
-export interface IRecipeFields {
+const RecipeSchema = Type.Object({
+  name: Type.String(),
+  description: Type.String(),
+  picture: Type.String(),
+  customFields: Type.Record(Type.String(), Type.String()),
+  ingredients: Type.Array(Type.String()),
+  instructions: Type.Array(Type.String()),
+  tags: Type.Array(Type.String()),
+});
+
+export type RecipeType = Static<typeof RecipeSchema>;
+
+export class Recipe extends BaseEntity implements Static<typeof RecipeSchema> {
+  static readonly Schema = Type.Composite([BaseEntitySchema, RecipeSchema], {
+    $id: "Recipe",
+  });
+
   name: string;
   description: string;
   picture: string;
@@ -8,18 +26,8 @@ export interface IRecipeFields {
   ingredients: string[];
   instructions: string[];
   tags: string[];
-}
 
-export class Recipe extends BaseEntity implements IRecipeFields {
-  name: string;
-  description: string;
-  picture: string;
-  customFields: Record<string, string>;
-  ingredients: string[];
-  instructions: string[];
-  tags: string[];
-
-  constructor(from: IRecipeFields & BaseEntity) {
+  constructor(from: Static<typeof RecipeSchema> & BaseEntity) {
     super(from);
 
     this.tags = from.tags;
@@ -33,26 +41,5 @@ export class Recipe extends BaseEntity implements IRecipeFields {
 
   toSummary(): RecipeSummary {
     return new RecipeSummary(this);
-  }
-}
-
-export class RecipeSummary implements Partial<Recipe> {
-  id: string;
-  name: string;
-  description: string;
-  picture: string;
-  ingredientsCount: number;
-  stepsCount: number;
-  tags: string[];
-
-  constructor(recipe: Recipe) {
-    this.id = recipe.id;
-    this.name = recipe.name;
-    this.description = recipe.description;
-    this.picture = recipe.picture;
-    this.tags = recipe.tags;
-
-    this.ingredientsCount = recipe.ingredients?.length ?? 0;
-    this.stepsCount = recipe.instructions?.length ?? 0;
   }
 }

@@ -1,6 +1,15 @@
+import { Type, type Static } from "@sinclair/typebox";
 import { randomUUID } from "crypto";
 
-interface IBaseEntity {
+export const BaseEntitySchema = Type.Object({
+  id: Type.String(),
+  createdAt: Type.String({ format: "date-time" }),
+  updatedAt: Type.String({ format: "date-time" }),
+  deletedAt: Type.Union([Type.Null(), Type.String({ format: "date-time" })]),
+  createdBy: Type.String(),
+});
+
+export interface BaseEntityFields {
   id: string;
   createdAt: Date;
   updatedAt: Date;
@@ -8,7 +17,10 @@ interface IBaseEntity {
   createdBy: string;
 }
 
-export abstract class BaseEntity implements IBaseEntity {
+/**
+ * Base entity with default values
+ */
+export abstract class BaseEntity implements BaseEntityFields {
   id: string;
   createdAt: Date;
   updatedAt: Date;
@@ -21,15 +33,15 @@ export abstract class BaseEntity implements IBaseEntity {
    *
    * @param from Entity to copy from
    */
-  constructor(from: IBaseEntity) {
+  constructor(from: Static<typeof BaseEntitySchema> | BaseEntityFields) {
     this.toCamelCase(from);
 
     console.log();
 
     this.id = from.id;
-    this.createdAt = from.createdAt;
-    this.updatedAt = from.updatedAt;
-    this.deletedAt = from.deletedAt;
+    this.createdAt = new Date(from.createdAt);
+    this.updatedAt = new Date(from.updatedAt);
+    this.deletedAt = from.deletedAt !== null ? new Date(from.deletedAt) : null;
     this.createdBy = from.createdBy;
   }
 
