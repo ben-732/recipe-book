@@ -29,6 +29,21 @@ fastify.register(import("@fastify/swagger"), {
     servers: [{ url: "http://localhost:3000", description: "Local server" }],
     tags: [{ name: "Recipes", description: "Recipe operations" }],
   },
+  refResolver: {
+    buildLocalReference(json, baseUri, fragment, i) {
+      // Set title from id if title not set
+      if (!json.title && json.$id) {
+        json.title = json.$id;
+      }
+
+      // Fallback if no $id is present
+      if (!json.$id) {
+        return `def-${i}`;
+      }
+
+      return `${json.$id}`;
+    },
+  },
 });
 
 fastify.register(import("@fastify/swagger-ui"), {

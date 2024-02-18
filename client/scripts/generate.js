@@ -6,6 +6,18 @@ const exec = require("child_process").exec;
 const output = path.join(__dirname, "../src/generated");
 const input = path.join(__dirname, "../openapi.json");
 
-console.log(`npx ng-openapi-gen --input "${input}" --output "${output}"`);
+// Generate schema and feed std out to console
 
-exec(`npx ng-openapi-gen --input ${input} --output ${output}`);
+console.log("Generating client-side code from OpenAPI schema...");
+
+const childProcess = exec(
+  `npx ng-openapi-gen --input ${input} --output ${output}`
+);
+
+childProcess.stdout.on("data", (data) => {
+  console.log(data.trim());
+});
+
+childProcess.stderr.on("data", (data) => {
+  console.error(data);
+});

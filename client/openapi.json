@@ -7,7 +7,7 @@
   },
   "components": {
     "schemas": {
-      "def-0": {
+      "Filter": {
         "title": "Base Filter",
         "description": "Base filter for when getting list of entities",
         "type": "object",
@@ -26,7 +26,7 @@
           }
         }
       },
-      "def-1": {
+      "Recipe": {
         "title": "Recipe",
         "type": "object",
         "properties": {
@@ -105,7 +105,7 @@
           "tags"
         ]
       },
-      "def-2": {
+      "RecipeSummary": {
         "type": "object",
         "properties": {
           "id": {
@@ -203,7 +203,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/def-2"
+                    "$ref": "#/components/schemas/RecipeSummary"
                   }
                 }
               }
@@ -234,7 +234,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/def-1"
+                  "$ref": "#/components/schemas/Recipe"
                 }
               }
             }
