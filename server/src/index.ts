@@ -20,16 +20,13 @@ fastify.withTypeProvider<TypeBoxTypeProvider>();
 fastify.setValidatorCompiler(validator);
 
 fastify.register(import("@fastify/swagger"), {
-  swagger: {
+  openapi: {
     info: {
       title: "Recipe API",
       description: "Recipe API",
       version: "0.1.0",
     },
-    host: "localhost:3000",
-    schemes: ["http"],
-    consumes: ["application/json"],
-    produces: ["application/json"],
+    servers: [{ url: "http://localhost:3000", description: "Local server" }],
     tags: [{ name: "Recipes", description: "Recipe operations" }],
   },
 });
