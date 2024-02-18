@@ -8,7 +8,7 @@ export const FilterSchema = Type.Object(
     orderBy: Type.Optional(Type.String()),
   },
   {
-    $id: "BaseFilter",
+    $id: "Filter",
     title: "Base Filter",
     description: "Base filter for when getting list of entities",
   }

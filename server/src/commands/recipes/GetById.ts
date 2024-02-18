@@ -16,7 +16,7 @@ export default (fastify: FastifyInstance) => {
           { required: ["id"] }
         ),
         response: {
-          200: { $ref: Recipe.Schema.$id },
+          200: Type.Ref(Recipe.Schema),
         },
       },
     },

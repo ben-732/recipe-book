@@ -97,8 +97,6 @@ export class RecipeRepository
     try {
       const res = await Database.query(query);
 
-      console.log(res);
-
       return new Recipe(res[0]);
     } catch (error) {
       return Promise.reject(error);

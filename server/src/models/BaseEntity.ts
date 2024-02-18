@@ -36,8 +36,6 @@ export abstract class BaseEntity implements BaseEntityFields {
   constructor(from: Static<typeof BaseEntitySchema> | BaseEntityFields) {
     this.toCamelCase(from);
 
-    console.log();
-
     this.id = from.id;
     this.createdAt = new Date(from.createdAt);
     this.updatedAt = new Date(from.updatedAt);
