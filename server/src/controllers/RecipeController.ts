@@ -1,8 +1,9 @@
 import { FastifyPluginCallback } from "fastify";
+import fp from "fastify-plugin";
 import * as Actions from "../commands/recipes/";
+import { RecipeSummary } from "../models/RecipeSummary";
 import { FilterSchema } from "../models/BaseFilter";
 import { Recipe } from "../models/Recipe";
-import { RecipeSummary } from "../models/RecipeSummary";
 
 const RecipeController: FastifyPluginCallback = (fastify, options, done) => {
   fastify.addSchema(FilterSchema);
@@ -18,4 +19,12 @@ const RecipeController: FastifyPluginCallback = (fastify, options, done) => {
   done();
 };
 
-export default RecipeController;
+export default fp(RecipeController, {
+  name: "recipe-controller",
+  fastify: "4.x",
+  decorators: {
+    fastify: ["addSchema"],
+  },
+  dependencies: ["api"],
+  encapsulate: true,
+});
