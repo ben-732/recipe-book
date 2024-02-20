@@ -4,11 +4,10 @@ import * as Actions from "../commands/recipes/";
 import { RecipeSummary } from "../models/RecipeSummary";
 import { FilterSchema } from "../models/BaseFilter";
 import { Recipe } from "../models/Recipe";
+import { TypeBoxTypeProvider } from "@fastify/type-provider-typebox";
 
-const RecipeController: FastifyPluginCallback = (fastify, options, done) => {
-  fastify.addSchema(FilterSchema);
-  fastify.addSchema(Recipe.Schema);
-  fastify.addSchema(RecipeSummary.Schema);
+const RecipeController: FastifyPluginCallback = (f, options, done) => {
+  const fastify = f.withTypeProvider<TypeBoxTypeProvider>();
 
   Actions.Get(fastify);
   Actions.GetById(fastify);
@@ -22,9 +21,6 @@ const RecipeController: FastifyPluginCallback = (fastify, options, done) => {
 export default fp(RecipeController, {
   name: "recipe-controller",
   fastify: "4.x",
-  decorators: {
-    fastify: ["addSchema"],
-  },
   dependencies: ["api"],
   encapsulate: true,
 });

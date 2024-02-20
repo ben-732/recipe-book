@@ -3,13 +3,13 @@ import dotenv from "dotenv";
 
 import { Database } from "./interface/database";
 
-// TODO: Find a better way to do tis
+// TODO: Find a better way/place to do tis
 Database.connect();
 
 dotenv.config();
 
 const fastify = Fastify({
-  logger: true,
+  logger: false,
 });
 
 // Declare a route

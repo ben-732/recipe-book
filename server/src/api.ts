@@ -1,16 +1,16 @@
-import { FastifyInstance, FastifyPluginCallback } from "fastify";
+import { FastifyPluginCallback } from "fastify";
 import fp from "fastify-plugin";
 import RepositoryPlugin from "./repository/RepositoryPlugin";
 import { TypeBoxTypeProvider } from "@fastify/type-provider-typebox";
-import validator from "./util/validator";
 
 import { FilterSchema } from "./models/BaseFilter";
 import { Recipe } from "./models/Recipe";
 import { RecipeSummary } from "./models/RecipeSummary";
 
-const Api: FastifyPluginCallback = (fastify, options, done) => {
-  fastify.withTypeProvider<TypeBoxTypeProvider>();
-  fastify.setValidatorCompiler(validator);
+const Api: FastifyPluginCallback = (f, options, done) => {
+  const fastify = f.withTypeProvider<TypeBoxTypeProvider>();
+
+  // fastify.setValidatorCompiler(validator);
 
   // ---- Set up OpenApi Config ----
   fastify.register(import("@fastify/swagger"), {
@@ -47,9 +47,13 @@ const Api: FastifyPluginCallback = (fastify, options, done) => {
   });
 
   // ---- Register schemas ---- TODO: Fix this registering thing
-  // fastify.addSchema(FilterSchema);
-  // fastify.addSchema(Recipe.Schema);
-  // fastify.addSchema(RecipeSummary.Schema);
+  fastify.addSchema(FilterSchema);
+  fastify.addSchema(Recipe.Schema);
+  fastify.addSchema(RecipeSummary.Schema);
+
+  // await setTimeout(() => Promise.resolve(), 1000);
+
+  // console.log(fastify.getSchemas());
 
   // ---- Register Repositories ----
   fastify.register(RepositoryPlugin);
