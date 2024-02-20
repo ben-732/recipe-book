@@ -11,7 +11,7 @@ const input = path.join(__dirname, "../openapi.json");
 console.log("Generating client-side code from OpenAPI schema...");
 
 const childProcess = exec(
-  `npx ng-openapi-gen --input ${input} --output ${output}`
+  `npx ng-openapi-gen --input ${input} --output ${output} --ignore-unused-models false`
 );
 
 childProcess.stdout.on("data", (data) => {
