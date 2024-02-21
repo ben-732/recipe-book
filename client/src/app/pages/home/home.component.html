@@ -3,21 +3,23 @@
     <h3>Recipes</h3>
   </div>
   <div class="recipes">
-    <div class="recipe-card" *ngFor="let recipe of recipeList()">
-      <div class="recipe-card__image">
-        <img
-          [src]="recipe.picture"
-          alt="Beef and Mustard Pie"
-          onerror="this.style.display='none'"
-        />
+    <a *ngFor="let recipe of recipeList()" [routerLink]="['r', recipe.id]">
+      <div class="recipe-card">
+        <div class="recipe-card__image">
+          <img
+            [src]="recipe.picture"
+            alt="Beef and Mustard Pie"
+            onerror="this.style.display='none'"
+          />
+        </div>
+        <div class="recipe-card__title">
+          <h4>{{ recipe.name }}</h4>
+        </div>
+        <div class="recipe-card__footer"></div>
       </div>
-      <div class="recipe-card__title">
-        <h4>{{ recipe.name }}</h4>
+      <div *ngIf="recipeList()?.length == 0">
+        <h3>No recipes were found :(</h3>
       </div>
-      <div class="recipe-card__footer">Recipe stats</div>
-    </div>
-    <div *ngIf="recipeList()?.length == 0">
-      <h3>No recipes were found :(</h3>
-    </div>
+    </a>
   </div>
 </div>

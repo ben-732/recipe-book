@@ -5,18 +5,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiModule } from '../generated/api.module';
-import { CommonModule } from '@angular/common';
 import { HomeComponent } from './pages/home/home.component';
+import { ViewRecipeComponent } from './pages/view-recipe/view-recipe.component';
 
 @NgModule({
   imports: [
     BrowserModule,
-    AppRoutingModule,
     RouterModule,
     HttpClientModule,
+    AppRoutingModule,
     ApiModule.forRoot({ rootUrl: 'api/' }),
   ],
-  declarations: [AppComponent, HomeComponent],
+  declarations: [AppComponent, HomeComponent, ViewRecipeComponent],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

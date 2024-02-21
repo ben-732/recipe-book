@@ -19,9 +19,7 @@ export class HomeComponent {
 
   error$ = new Subject<Error>();
 
-  constructor(private recipesService: RecipesService, http: HttpClient) {
+  constructor(private recipesService: RecipesService) {
     this.recipesService.recipesGet().subscribe(this.request$);
-
-    // http.get('/api/recipes/').subscribe(console.log);
   }
 }
