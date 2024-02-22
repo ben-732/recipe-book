@@ -6,6 +6,7 @@ import { randomUUID } from "crypto";
 const RecipeSchema = Type.Object({
   name: Type.String(),
   description: Type.String(),
+  source: Type.String(),
   picture: Type.String(),
   customFields: Type.Record(Type.String(), Type.String()),
   ingredients: Type.Array(Type.String()),
@@ -23,6 +24,7 @@ export class Recipe extends BaseEntity implements Static<typeof RecipeSchema> {
 
   name: string;
   description: string;
+  source: string;
   picture: string;
   customFields: Record<string, string>;
   ingredients: string[];
@@ -35,6 +37,7 @@ export class Recipe extends BaseEntity implements Static<typeof RecipeSchema> {
     this.description = from.description;
     this.name = from.name;
     this.picture = from.picture;
+    this.source = from.source;
     this.customFields = from.customFields ?? {};
     this.ingredients = from.ingredients ?? [];
     this.instructions = from.instructions ?? [];

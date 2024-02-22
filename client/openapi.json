@@ -62,6 +62,9 @@
           "description": {
             "type": "string"
           },
+          "source": {
+            "type": "string"
+          },
           "picture": {
             "type": "string"
           },
@@ -98,6 +101,7 @@
           "createdBy",
           "name",
           "description",
+          "source",
           "picture",
           "customFields",
           "ingredients",
