@@ -1,12 +1,16 @@
 .recipe-view {
   width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
   display: flex;
   justify-content: center;
+  overflow-y: auto;
 
   .recipe {
     width: 80%;
     min-width: 600px;
     max-width: 1000px;
+    background: var(--page);
 
     // shadow
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
@@ -21,7 +25,10 @@
       }
 
       .source {
-        font-size: 1.2rem;
+        p {
+          font-size: 0.9rem;
+          color: var(--text-secondary);
+        }
       }
 
       .description {

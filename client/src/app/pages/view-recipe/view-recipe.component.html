@@ -1,25 +1,38 @@
-<p>view-recipe works!</p>
+<div class="recipe-view-container">
+  <a [routerLink]="'/'">Back</a>
 
-<a [routerLink]="'/'">Back</a>
+  <div class="recipe-view">
+    <div class="recipe">
+      <div class="recipe__image"></div>
+      <div class="recipe__content">
+        <h3 class="title">{{ recipe()?.name }}</h3>
 
-<div class="recipe-view">
-  <div class="recipe">
-    <div class="recipe__image"></div>
-    <div class="recipe__content">
-      <h3 class="title">{{ recipe()?.name }}</h3>
-      <p class="source">{{ recipe()?.source }}</p>
+        <div class="source" *ngIf="recipeSource().text">
+          <a
+            *ngIf="recipeSource().url"
+            [href]="recipeSource().url"
+            target="_blank"
+            >{{ recipeSource().text }}</a
+          >
+          <p *ngIf="!recipeSource().url">
+            {{ recipeSource().text }}
+          </p>
+        </div>
 
-      <p class="description">{{ recipe()?.description }}</p>
+        <!-- <p class="source">{{ recipe()?.source }}</p> -->
 
-      <hr />
+        <p class="description">{{ recipe()?.description }}</p>
 
-      <div class="recipe__content__ingredients">
-        <h4>Ingredients</h4>
-        <ul>
-          <li *ngFor="let ingredient of recipe()?.ingredients">
-            {{ ingredient }}
-          </li>
-        </ul>
+        <hr />
+
+        <div class="recipe__content__ingredients">
+          <h4>Ingredients</h4>
+          <ul>
+            <li *ngFor="let ingredient of recipe()?.ingredients">
+              {{ ingredient }}
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

@@ -1,6 +1,14 @@
 .container {
   box-sizing: border-box;
-  height: 100%;
+  height: 100vh;
   width: 100%;
-  margin: 16px;
+  padding: 16px;
+  overflow: hidden;
+
+  background: linear-gradient(
+      to bottom,
+      var(--background-primary),
+      var(--background-secondary)
+    )
+    no-repeat;
 }

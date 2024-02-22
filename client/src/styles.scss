@@ -8,6 +8,8 @@
   --secondary: #353535;
   --light: #f4f4f4;
   --page: #fff;
+  --background-primary: #f4f4f4;
+  --background-secondary: #9421ff;
 }
 
 // Fonts
@@ -64,7 +66,7 @@ body {
   margin: 0;
   padding: 0;
   color: var(--text);
-  background-color: var(--page);
+
   overflow: auto;
   overflow-x: hidden;
   * {
