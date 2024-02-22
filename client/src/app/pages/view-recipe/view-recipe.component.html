@@ -2,4 +2,25 @@
 
 <a [routerLink]="'/'">Back</a>
 
-<h1>{{ recipe()?.name }}</h1>
+<div class="recipe-view">
+  <div class="recipe">
+    <div class="recipe__image"></div>
+    <div class="recipe__content">
+      <h3 class="title">{{ recipe()?.name }}</h3>
+      <p class="source">Recipe source thing goes here</p>
+
+      <p class="description">{{ recipe()?.description }}</p>
+
+      <hr />
+
+      <div class="recipe__content__ingredients">
+        <h4>Ingredients</h4>
+        <ul>
+          <li *ngFor="let ingredient of recipe()?.ingredients">
+            {{ ingredient }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

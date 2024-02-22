@@ -1,0 +1,34 @@
+.recipe-view {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  .recipe {
+    width: 80%;
+    min-width: 600px;
+    max-width: 1000px;
+
+    // shadow
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+
+    &__content {
+      margin: 20px 10px 10px;
+
+      .title,
+      .source {
+        text-align: center;
+      }
+
+      .source {
+        font-size: 1.2rem;
+      }
+
+      .description {
+        margin: 10px 0;
+        text-align: center;
+        color: var(--text-secondary);
+      }
+    }
+  }
+}
