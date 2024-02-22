@@ -1,0 +1,14 @@
+<ng-container *ngIf="link">
+  <a [routerLink]="link">
+    <ng-container *ngTemplateOutlet="button"></ng-container>
+  </a>
+</ng-container>
+
+<ng-container *ngIf="!link">
+  <ng-container *ngTemplateOutlet="button"></ng-container>
+</ng-container>
+<ng-template #button>
+  <button (click)="click.emit()">
+    <ng-content></ng-content>
+  </button>
+</ng-template>

@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ApiModule } from '../generated/api.module';
 import { HomeComponent } from './pages/home/home.component';
 import { ViewRecipeComponent } from './pages/view-recipe/view-recipe.component';
+import { ComponentsModule } from './components/components.module';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { ViewRecipeComponent } from './pages/view-recipe/view-recipe.component';
     RouterModule,
     HttpClientModule,
     AppRoutingModule,
+    ComponentsModule,
     ApiModule.forRoot({ rootUrl: 'api/' }),
   ],
   declarations: [AppComponent, HomeComponent, ViewRecipeComponent],
