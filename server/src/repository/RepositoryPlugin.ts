@@ -1,15 +1,13 @@
 import { FastifyPluginCallback } from "fastify";
 import fp from "fastify-plugin";
 import { RecipeRepository } from "./RecipeRepository";
-import { Recipe } from "../models/Recipe";
-import { RecipeSummary } from "../models/RecipeSummary";
-import { FilterSchema } from "../models/BaseFilter";
-import { Type } from "@sinclair/typebox";
+import { TagRepository } from "./TagRepository";
 
 declare module "fastify" {
   interface FastifyInstance {
     repository: {
       recipes: RecipeRepository;
+      tags: TagRepository;
     };
   }
 }
@@ -17,6 +15,7 @@ declare module "fastify" {
 const Repositories: FastifyPluginCallback = (fastify, options, done) => {
   fastify.decorate("repository", {
     recipes: new RecipeRepository(),
+    tags: new TagRepository(),
   });
 
   done();

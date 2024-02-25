@@ -10,7 +10,9 @@ const TagSchema = Type.Object({
 export type TagType = Static<typeof TagSchema>;
 
 export class Tag extends BaseEntity implements Static<typeof TagSchema> {
-  static readonly Schema = TagSchema;
+  static readonly Schema = Type.Composite([TagSchema, BaseEntity.Schema], {
+    $id: "Tag",
+  });
 
   name: string;
   icon: string;

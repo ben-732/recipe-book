@@ -21,6 +21,8 @@ export interface BaseEntityFields {
  * Base entity with default values
  */
 export abstract class BaseEntity implements BaseEntityFields {
+  public static readonly Schema = BaseEntitySchema;
+
   id: string;
   createdAt: Date;
   updatedAt: Date;

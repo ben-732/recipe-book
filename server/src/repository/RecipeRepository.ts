@@ -21,8 +21,11 @@ export class RecipeRepository
    * @returns Specified Recipe
    */
   async get(id: string): Promise<Recipe | undefined> {
+    //postgres
     const query: QueryConfig = {
-      text: "SELECT * FROM recipes WHERE id = $1",
+      // text: "SELECT recipes.*, tags.name, tags.color, tags.id as tag_id, tags.icon FROM recipes INNER JOIN recipe_tags ON recipes.id = recipe_tags.recipe_id INNER JOIN tags ON recipe_tags.tag_id = tags.id WHERE recipes.id = $1",
+      text: "SELECT recipes.* FROM recipes WHERE recipes.id = $1",
+
       name: "get-recipe-by-id",
       values: [id],
     };
@@ -33,6 +36,7 @@ export class RecipeRepository
       if (req.length < 1) {
         return undefined;
       }
+      console.log(req);
 
       const recipe = new Recipe(req[0]);
 
