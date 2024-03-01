@@ -2,20 +2,24 @@ import { Static, Type } from "@sinclair/typebox";
 import { BaseEntity, BaseEntitySchema } from "./BaseEntity";
 import { RecipeSummary } from "./RecipeSummary";
 
-const RecipeSchema = Type.Object({
-  name: Type.String(),
-  description: Type.String(),
-  source: Type.String(),
-  picture: Type.String(),
-  customFields: Type.Record(Type.String(), Type.String()),
-  ingredients: Type.Array(Type.String()),
-  instructions: Type.Array(Type.String()),
-  tags: Type.Array(Type.String()),
-});
+const RecipeSchema = Type.Object(
+  {
+    name: Type.String(),
+    description: Type.String(),
+    source: Type.String(),
+    picture: Type.String(),
+    customFields: Type.Record(Type.String(), Type.String()),
+    ingredients: Type.Array(Type.String()),
+    instructions: Type.Array(Type.String()),
+    tags: Type.Array(Type.String()),
+  },
+  { $id: "RecipeFields" }
+);
 
 export type RecipeType = Static<typeof RecipeSchema>;
 
 export class Recipe extends BaseEntity implements Static<typeof RecipeSchema> {
+  static readonly FieldsSchema = RecipeSchema;
   static readonly Schema = Type.Composite([BaseEntitySchema, RecipeSchema], {
     $id: "Recipe",
     title: "Recipe",

@@ -1,9 +1,6 @@
 import { FastifyPluginCallback } from "fastify";
 import fp from "fastify-plugin";
 import * as Actions from "../commands/recipes/";
-import { RecipeSummary } from "../models/RecipeSummary";
-import { FilterSchema } from "../models/BaseFilter";
-import { Recipe } from "../models/Recipe";
 import { TypeBoxTypeProvider } from "@fastify/type-provider-typebox";
 
 const RecipeController: FastifyPluginCallback = (f, options, done) => {
@@ -11,7 +8,7 @@ const RecipeController: FastifyPluginCallback = (f, options, done) => {
 
   Actions.Get(fastify);
   Actions.GetById(fastify);
-  // Actions.Add(fastify);
+  Actions.Add(fastify);
   // Actions.Update(fastify);
   // Actions.Delete(fastify);
 

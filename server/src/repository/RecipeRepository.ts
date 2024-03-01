@@ -12,7 +12,12 @@ const CURRENT_USER_ID = "24ddaba2-5ee0-4388-bf88-e0f75d66e915";
 
 export class RecipeRepository
   implements
-    IRepository<Recipe, RecipeSummary, RecipeType, Static<typeof FilterSchema>>
+    IRepository<
+      Recipe,
+      RecipeSummary,
+      Static<typeof Recipe.FieldsSchema>,
+      Static<typeof FilterSchema>
+    >
 {
   /**
    * Get a single recipe by id
@@ -23,7 +28,7 @@ export class RecipeRepository
   async get(id: string): Promise<Recipe | undefined> {
     //postgres
     const query: QueryConfig = {
-      // text: "SELECT recipes.*, tags.name, tags.color, tags.id as tag_id, tags.icon FROM recipes INNER JOIN recipe_tags ON recipes.id = recipe_tags.recipe_id INNER JOIN tags ON recipe_tags.tag_id = tags.id WHERE recipes.id = $1",
+      // text: "SELECT recipes.*, tags.name as tag_name, tags.color as tag_color, tags.id as tag_id, tags.icon FROM recipes JOIN recipe_tags ON recipes.id = recipe_tags.recipe_id INNER JOIN tags ON recipe_tags.tag_id = tags.id WHERE recipes.id = $1",
       text: "SELECT recipes.* FROM recipes WHERE recipes.id = $1",
 
       name: "get-recipe-by-id",

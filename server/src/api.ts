@@ -50,6 +50,7 @@ const Api: FastifyPluginCallback = (f, options, done) => {
   // ---- Register schemas ---- TODO: Fix this registering thing
   fastify.addSchema(FilterSchema);
   fastify.addSchema(Recipe.Schema);
+  fastify.addSchema(Recipe.FieldsSchema);
   fastify.addSchema(RecipeSummary.Schema);
   fastify.addSchema(Tag.Schema);
 
