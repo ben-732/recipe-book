@@ -7,7 +7,7 @@ import { Static, Type } from "@sinclair/typebox";
  * Add a recipe
  */
 export default (fastify: FastifyInstance) => {
-  fastify.post<{ Body: Static<typeof Recipe.FieldsSchema> }>(
+  fastify.patch<{ Body: Static<typeof Recipe.FieldsSchema> }>(
     "/",
     {
       schema: {
@@ -19,8 +19,10 @@ export default (fastify: FastifyInstance) => {
       },
     },
     async (request, reply) => {
-      const newRecipe = await fastify.repository.recipes.add(request.body);
-      reply.send(newRecipe);
+      const updatedRecipe = await fastify.repository.recipes.update(
+        request.body
+      );
+      reply.send(updatedRecipe);
     }
   );
 };

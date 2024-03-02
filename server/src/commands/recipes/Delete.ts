@@ -7,20 +7,23 @@ import { Static, Type } from "@sinclair/typebox";
  * Add a recipe
  */
 export default (fastify: FastifyInstance) => {
-  fastify.post<{ Body: Static<typeof Recipe.FieldsSchema> }>(
-    "/",
+  fastify.delete<{ Params: { id: string } }>(
+    "/:id",
     {
       schema: {
         tags: ["Recipes"],
-        body: Type.Ref(Recipe.FieldsSchema),
+        params: Type.Object(
+          { id: Recipe.Schema.properties.id },
+          { required: ["id"] }
+        ),
         response: {
-          200: Type.Ref(Recipe.Schema),
+          200: {},
         },
       },
     },
     async (request, reply) => {
-      const newRecipe = await fastify.repository.recipes.add(request.body);
-      reply.send(newRecipe);
+      await fastify.repository.recipes.delete(request.params.id);
+      reply.send({});
     }
   );
 };

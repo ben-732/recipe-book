@@ -114,7 +114,7 @@ export class RecipeRepository
 
   async delete(id: string): Promise<void> {
     const query: QueryConfig = {
-      text: "UPDATE FROM recipes WHERE id = $1 SET deleted_at = NOW()",
+      text: "UPDATE recipes SET deleted_at = NOW() WHERE id = $1",
       name: "delete-recipe",
       values: [id],
     };

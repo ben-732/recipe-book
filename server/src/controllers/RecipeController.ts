@@ -9,8 +9,8 @@ const RecipeController: FastifyPluginCallback = (f, options, done) => {
   Actions.Get(fastify);
   Actions.GetById(fastify);
   Actions.Add(fastify);
-  // Actions.Update(fastify);
-  // Actions.Delete(fastify);
+  Actions.Update(fastify);
+  Actions.Delete(fastify);
 
   done();
 };
