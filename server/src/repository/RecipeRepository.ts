@@ -29,7 +29,7 @@ export class RecipeRepository
     //postgres
     const query: QueryConfig = {
       // text: "SELECT recipes.*, tags.name as tag_name, tags.color as tag_color, tags.id as tag_id, tags.icon FROM recipes JOIN recipe_tags ON recipes.id = recipe_tags.recipe_id INNER JOIN tags ON recipe_tags.tag_id = tags.id WHERE recipes.id = $1",
-      text: "SELECT recipes.* FROM recipes WHERE recipes.id = $1",
+      text: "SELECT recipes.* FROM recipes WHERE recipes.id = $1 AND deleted_at IS NULL",
 
       name: "get-recipe-by-id",
       values: [id],
@@ -60,12 +60,12 @@ export class RecipeRepository
     let valueCount = 1;
 
     const query: QueryConfig = {
-      text: "SELECT * FROM recipes",
+      text: "SELECT * FROM recipes WHERE deleted_at IS NULL",
       values: [],
     };
 
     if (filter.search) {
-      query.text += ` WHERE name ILIKE $${valueCount} OR description ILIKE $${valueCount++}`;
+      query.text += ` AND name ILIKE $${valueCount} OR description ILIKE $${valueCount++}`;
       query.values!.push(`%${filter.search}%`);
     }
 
@@ -114,7 +114,7 @@ export class RecipeRepository
 
   async delete(id: string): Promise<void> {
     const query: QueryConfig = {
-      text: "UPDATE recipes SET deleted_at = NOW() WHERE id = $1",
+      text: "UPDATE recipes SET deleted_at = NOW() WHERE id = $1 AND deleted_at IS NULL",
       name: "delete-recipe",
       values: [id],
     };

@@ -1,6 +1,6 @@
 -- Adminer 4.8.1 PostgreSQL 16.1 (Debian 16.1-1.pgdg120+1) dump
 
-\connect "postgres";
+-- \connect "postgres";
 
 DROP TABLE IF EXISTS "recipe_tags";
 CREATE TABLE "public"."recipe_tags" (
