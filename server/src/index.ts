@@ -24,4 +24,5 @@ const port = process.env.PORT ? parseInt(process.env.PORT as string) : 3000;
 
 fastify.listen({ port }, (err, address) => {
   if (err) throw err;
+  console.log(`Server listening on ${address}:  , http://localhost:${port}`);
 });

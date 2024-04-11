@@ -1,5 +1,6 @@
 import { Static, Type } from "@sinclair/typebox";
 import { Recipe } from "./Recipe";
+import { TagSummary } from "./Tag";
 
 const RecipeSummarySchema = Type.Object(
   {
@@ -9,7 +10,7 @@ const RecipeSummarySchema = Type.Object(
     picture: Type.String(),
     ingredientsCount: Type.Number(),
     stepsCount: Type.Number(),
-    tags: Type.Array(Type.String()),
+    tags: Type.Array(TagSummary.Schema),
   },
   { $id: "RecipeSummary" }
 );
@@ -23,7 +24,7 @@ export class RecipeSummary implements Static<typeof RecipeSummarySchema> {
   picture: string;
   ingredientsCount: number;
   stepsCount: number;
-  tags: string[];
+  tags: TagSummary[];
 
   constructor(recipe: Recipe) {
     this.id = recipe.id;

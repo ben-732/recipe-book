@@ -1,6 +1,7 @@
 import { Static, Type } from "@sinclair/typebox";
 import { BaseEntity, BaseEntitySchema } from "./BaseEntity";
 import { RecipeSummary } from "./RecipeSummary";
+import { Tag, TagSummary } from "./Tag";
 
 const RecipeSchema = Type.Object(
   {
@@ -11,7 +12,7 @@ const RecipeSchema = Type.Object(
     customFields: Type.Record(Type.String(), Type.String()),
     ingredients: Type.Array(Type.String()),
     instructions: Type.Array(Type.String()),
-    tags: Type.Array(Type.String()),
+    tags: Type.Array(TagSummary.Schema),
   },
   { $id: "RecipeFields" }
 );
@@ -34,7 +35,7 @@ export class Recipe extends BaseEntity implements Static<typeof RecipeSchema> {
   // instructions: {name: string, items: string[] }[];
   ingredients: string[];
   instructions: string[];
-  tags: string[];
+  tags: TagSummary[];
 
   constructor(from: RecipeType & BaseEntity) {
     super(from);
@@ -46,7 +47,7 @@ export class Recipe extends BaseEntity implements Static<typeof RecipeSchema> {
     this.customFields = from.customFields ?? {};
     this.ingredients = from.ingredients ?? [];
     this.instructions = from.instructions ?? [];
-    this.tags = from.tags ?? [];
+    this.tags = from.tags;
   }
 
   toSummary(): RecipeSummary {
