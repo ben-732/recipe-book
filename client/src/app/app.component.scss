@@ -4,11 +4,6 @@
   width: 100%;
   padding: 16px;
   overflow: hidden;
-
-  background: linear-gradient(
-      to bottom,
-      var(--background-primary),
-      var(--background-secondary)
-    )
-    no-repeat;
+  color: var(--text-light);
+  background-color: var(--background);
 }

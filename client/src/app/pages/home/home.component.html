@@ -15,7 +15,10 @@
         <div class="recipe-card__title">
           <h4>{{ recipe.name }}</h4>
         </div>
-        <div class="recipe-card__footer"></div>
+        <div class="flex-grow"></div>
+        <div class="recipe-card__footer">
+          <recipe-tag *ngFor="let tag of recipe.tags" [tag]="tag"></recipe-tag>
+        </div>
       </div>
       <div *ngIf="recipeList()?.length == 0">
         <h3>No recipes were found</h3>

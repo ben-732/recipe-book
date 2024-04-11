@@ -1,0 +1,19 @@
+.recipe-tag-box {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  // background-color: #fff;
+
+  &__icon {
+    height: 12px;
+    width: 12px;
+    background-color: #000;
+  }
+
+  &__name {
+    color: --var(text);
+    margin-left: 5px;
+  }
+}

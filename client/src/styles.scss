@@ -9,8 +9,7 @@
   --secondary: #353535;
   --light: #f4f4f4;
   --page: #fff;
-  --background-primary: #f4f4f4;
-  --background-secondary: #9421ff;
+  --background: #d4d4d4;
 }
 
 // Fonts
@@ -77,4 +76,8 @@ body {
 
 a {
   text-decoration: none;
+}
+
+.flex-grow {
+  flex-grow: 1;
 }
