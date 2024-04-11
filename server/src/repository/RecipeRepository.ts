@@ -60,7 +60,12 @@ export class RecipeRepository
     let valueCount = 1;
 
     const query: QueryConfig = {
-      text: "SELECT * FROM recipes WHERE deleted_at IS NULL",
+      text: `SELECT recipes.id, recipes.name, recipes.description, recipes.picture,
+            '0' as ingredients_count, '0' as steps_count, json_agg(to_json(t)) as tags
+            FROM recipes
+              join recipe_tags on recipes.id = recipe_tags.recipe_id
+              join (select id, color, icon, name from tags) as t on recipe_tags.tag_id = t.id
+            WHERE deleted_at IS NULL`,
       values: [],
     };
 
@@ -78,6 +83,8 @@ export class RecipeRepository
       query.text += ` OFFSET $${valueCount++}`;
       query.values!.push(filter.offset);
     }
+
+    query.text += ` GROUP BY recipes.id`;
 
     try {
       const req = await Database.query(query);
