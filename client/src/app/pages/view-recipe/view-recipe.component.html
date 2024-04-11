@@ -23,6 +23,12 @@
 
         <p class="description">{{ recipe()?.description }}</p>
 
+        <div class="tags">
+          <recipe-tag
+            *ngFor="let tag of recipe()?.tags"
+            [tag]="tag"
+          ></recipe-tag>
+        </div>
         <hr />
 
         <div class="recipe__content__ingredients">

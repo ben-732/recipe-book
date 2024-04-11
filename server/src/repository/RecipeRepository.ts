@@ -29,7 +29,12 @@ export class RecipeRepository
     //postgres
     const query: QueryConfig = {
       // text: "SELECT recipes.*, tags.name as tag_name, tags.color as tag_color, tags.id as tag_id, tags.icon FROM recipes JOIN recipe_tags ON recipes.id = recipe_tags.recipe_id INNER JOIN tags ON recipe_tags.tag_id = tags.id WHERE recipes.id = $1",
-      text: "SELECT recipes.* FROM recipes WHERE recipes.id = $1 AND deleted_at IS NULL",
+      text: `
+        SELECT recipes.*, json_agg(to_json(t)) as tags 
+        FROM recipes 
+          JOIN recipe_tags on recipes.id = recipe_tags.recipe_id 
+          JOIN (select id, color, icon, name from tags) as t on recipe_tags.tag_id = t.id 
+        WHERE recipes.id = $1 AND deleted_at IS NULL GROUP BY recipes.id`,
 
       name: "get-recipe-by-id",
       values: [id],

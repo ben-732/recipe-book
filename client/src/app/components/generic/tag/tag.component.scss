@@ -2,8 +2,16 @@
   display: flex;
   align-items: center;
   gap: 2px;
-  padding: 4px 6px;
-  border-radius: 4px;
+
+  &__large {
+    padding: 4px 6px;
+    border-radius: 4px;
+  }
+
+  &__small {
+    padding: 4px 6px;
+    border-radius: 8px;
+  }
   // background-color: #fff;
 
   &__icon {

@@ -8,4 +8,6 @@ import { TagSummary } from '../../../../generated/models';
 })
 export class TagComponent {
   @Input() tag!: TagSummary;
+
+  @Input() size: 'small' | 'large' = 'small';
 }
