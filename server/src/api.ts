@@ -6,7 +6,7 @@ import { TypeBoxTypeProvider } from "@fastify/type-provider-typebox";
 import { FilterSchema } from "./models/BaseFilter";
 import { Recipe } from "./models/Recipe";
 import { RecipeSummary } from "./models/RecipeSummary";
-import { Tag } from "./models/Tag";
+import { Tag, TagSummary } from "./models/Tag";
 
 const Api: FastifyPluginCallback = (f, options, done) => {
   const fastify = f.withTypeProvider<TypeBoxTypeProvider>();
@@ -53,10 +53,7 @@ const Api: FastifyPluginCallback = (f, options, done) => {
   fastify.addSchema(Recipe.FieldsSchema);
   fastify.addSchema(RecipeSummary.Schema);
   fastify.addSchema(Tag.Schema);
-
-  // await setTimeout(() => Promise.resolve(), 1000);
-
-  // console.log(fastify.getSchemas());
+  fastify.addSchema(TagSummary.Schema);
 
   // ---- Register Repositories ----
   fastify.register(RepositoryPlugin);

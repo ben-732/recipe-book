@@ -10,7 +10,7 @@ const RecipeSummarySchema = Type.Object(
     picture: Type.String(),
     ingredientsCount: Type.Number(),
     stepsCount: Type.Number(),
-    tags: Type.Array(TagSummary.Schema),
+    tags: Type.Array(Type.Ref(TagSummary.Schema)),
   },
   { $id: "RecipeSummary" }
 );

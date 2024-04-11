@@ -12,7 +12,7 @@ const RecipeSchema = Type.Object(
     customFields: Type.Record(Type.String(), Type.String()),
     ingredients: Type.Array(Type.String()),
     instructions: Type.Array(Type.String()),
-    tags: Type.Array(TagSummary.Schema),
+    tags: Type.Array(Type.Ref(TagSummary.Schema)),
   },
   { $id: "RecipeFields" }
 );

@@ -27,12 +27,15 @@ export class Tag extends BaseEntity implements Static<typeof TagSchema> {
   }
 }
 
-const TagSummarySchema = Type.Object({
-  id: Type.String(),
-  name: Type.String(),
-  icon: Type.String(),
-  color: Type.String(),
-});
+const TagSummarySchema = Type.Object(
+  {
+    id: Type.String(),
+    name: Type.String(),
+    icon: Type.String(),
+    color: Type.String(),
+  },
+  { $id: "TagSummary" }
+);
 
 export class TagSummary {
   static readonly Schema = TagSummarySchema;
